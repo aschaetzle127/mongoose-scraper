@@ -65,10 +65,48 @@ app.get("/stories", (req, res) => {
 });
 
 app.post("/api/comment", (req, res) => {
-  // const {id, name, message} = req.body;
-  // if(!id) {
-  //     response.send()
-  // }
+  const { id, name, message } = req.body;
+  if (!id) {
+    response
+      .send({
+        success: false,
+        errorMessage: "Article id is required! Try again."
+      })
+      .status(500)
+      .end();
+  } else if (!name || !message) {
+    res
+      .send({
+        success: false,
+        errorMessage: "Please provide a name and comment."
+      })
+      .status(500)
+      .end();
+  } else {
+    models.NewsPost.findOneAndUpdate(
+      { id },
+      { $push: { comments: [{ name, message }] } },
+      (err, result) => {
+        if (err) {
+          res
+            .send({
+              success: false,
+              errorMessage: "Unable to post comment"
+            })
+            .status(500)
+            .end();
+        } else {
+          res
+            .send({
+              success: true,
+              errorMessage: ""
+            })
+            .status(200)
+            .end();
+        }
+      }
+    );
+  }
 });
 
 app.listen(PORT, () => console.log("App running on port" + PORT));
