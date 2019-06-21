@@ -1,0 +1,20 @@
+{
+  "name": "mongoose-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aschaetzle127/mongoose-scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aschaetzle127/mongoose-scraper/issues"
+  },
+  "homepage": "https://github.com/aschaetzle127/mongoose-scraper#readme"
+}
