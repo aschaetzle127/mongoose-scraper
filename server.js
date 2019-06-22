@@ -23,6 +23,14 @@ app.use(express.static("public"));
 
 //Routes
 
+app.get("/", (req, res) => {
+  models.NewsPost.find({}, (_, data) => {
+    res.render("index", {
+      article: data
+    });
+  });
+});
+
 //GET route for scraping the site
 
 app.get("/scrape", (req, res) => {
