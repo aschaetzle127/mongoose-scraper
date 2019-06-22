@@ -25,38 +25,40 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   models.NewsPost.find({}, (_, data) => {
+    // console.log(data);
     res.render("index", {
       article: data
     });
   });
 });
 
-//GET route for scraping the site
+//scraping function
 
-app.get("/scrape", (req, res) => {
-  axios.get("https://old.reddit.com/r/science/").then(response => {
-    const $ = cheerio.load(response.data);
+axios.get("https://old.reddit.com/r/science/").then(response => {
+  const $ = cheerio.load(response.data);
 
-    $("div.top-matter").each(function(i, element) {
-      const result = {};
+  $("div.top-matter").each(function(i, element) {
+    const result = {};
+    result.id = $(this)
+      .children("p.title")
+      .text()
+      .replace(/[^a-z]/gi, "-")
+      .substring(0, 50);
+    result.title = $(this)
+      .children("p.title")
+      .text();
+    result.link = $(this)
+      .children("p.title")
+      .children("a")
+      .attr("href");
 
-      result.title = $(this)
-        .children("p.title")
-        .text();
-      result.link = $(this)
-        .children("p.title")
-        .children("a")
-        .attr("href");
-
-      db.NewsPost.create(result)
-        .then(function(dbNewsPost) {
-          console.log(dbNewsPost);
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    });
-    res.send("Scrape Complete");
+    db.NewsPost.create(result)
+      .then(function(dbNewsPost) {
+        console.log(dbNewsPost);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
   });
 });
 
@@ -75,7 +77,7 @@ app.get("/stories", (req, res) => {
 app.post("/api/comment", (req, res) => {
   const { id, name, message } = req.body;
   if (!id) {
-    response
+    res
       .send({
         success: false,
         errorMessage: "Article id is required! Try again."
@@ -94,7 +96,7 @@ app.post("/api/comment", (req, res) => {
     models.NewsPost.findOneAndUpdate(
       { id },
       { $push: { comments: [{ name, message }] } },
-      (err, result) => {
+      (err, res) => {
         if (err) {
           res
             .send({
