@@ -96,7 +96,7 @@ app.post("/api/comment", (req, res) => {
     models.NewsPost.findOneAndUpdate(
       { id },
       { $push: { comments: [{ name, message }] } },
-      (err, res) => {
+      (err, result) => {
         if (err) {
           res
             .send({
