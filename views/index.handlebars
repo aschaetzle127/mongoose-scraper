@@ -1,7 +1,8 @@
-<div class="section">
+<div class="section" id="main-sec">
     {{#each article }}
-        <article class="box is-paddingless">
-            <a href="{{ this.link }}" class="card-header-title has-text-centered is-block" target="_blank">
+        <article class="box is-paddingless" id="article-box">
+            <a href="{{ this.link }}" class="card-header-title has-text-centered is-block has-text-light" id="title-box"
+                target="_blank">
                 {{ this.title }}
             </a>
             <div class="card-footer">
@@ -38,17 +39,17 @@
                             <div class="field">
                                 <label class="label">Name</label>
                                 <div class="control">
-                                    <input class="comment-name input" type="text" placeholder="Example: Bob">
+                                    <input class="comment-name input" type="text" placeholder="Example: Brian">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Message</label>
                                 <div class="control">
                                     <textarea class="comment-message textarea"
-                                        placeholder="Example: Our governemt sucks!"></textarea>
+                                        placeholder="Example: Never make negative comments...It depreciates their reputation and yours."></textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="button is-primary is-success">Add your comment</button>
+                            <button type="submit" class="button is-primary is-success">Add Comment</button>
                         </form>
                     </div>
                 </div>

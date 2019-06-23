@@ -1,0 +1,21 @@
+#scraper-head {
+  background-image: url("../images/science.jpg");
+}
+
+#main-sec {
+  background: #0b0c10;
+}
+
+#article-box {
+  border: 50px;
+  border-color: #45a29e;
+  background: #1f2833;
+}
+
+title-box {
+  color: #c5c6c7;
+}
+
+a {
+  color: #c5c6c7;
+}
